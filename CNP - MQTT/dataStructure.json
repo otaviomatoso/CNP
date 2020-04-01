@@ -1,0 +1,37 @@
+{
+  "Type": "participant",
+  "Name": "Fulano",
+  "Service": "beer"
+}
+
+{
+  "Type": "cfp",
+  "Id": 1,
+  "Name": "Beltrano",
+  "Service": "beer"
+}
+
+{
+  "Type": "refusal",
+  "Id": 1,
+  "Name": "Fulano"
+}
+
+{
+  "Type": "proposal",
+  "Id": 1,
+  "Name": "Fulano",
+  "Price": 3
+}
+
+{
+  "Type": "reject",
+  "Id": 1,
+  "Name": "Beltrano"
+}
+
+{
+  "Type": "accept",
+  "Id": 1,
+  "Name": "Beltrano"
+}

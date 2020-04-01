@@ -1,0 +1,59 @@
+<routes xmlns="http://camel.apache.org/schema/spring">
+
+   <route id="register">
+     <from uri="jacamo-artifact:mqtt?operation=register&amp;args=(Name,Service)"/>
+     <setProperty propertyName="Type"><simple>participant</simple></setProperty>
+     <process ref="register"/>
+     <to uri="mqtt:client?publishTopicName=cnp/participants&amp;host=tcp://test.mosquitto.org:1883"/>
+   </route>
+
+   <route id="cfp">
+     <from uri="jacamo-artifact:mqtt?operation=cfp&amp;args=(Id,Name,Service)"/>
+     <setProperty propertyName="Type"><simple>cfp</simple></setProperty>
+     <process ref="register"/>
+     <to uri="mqtt:client?publishTopicName=cnp/cfp&amp;host=tcp://test.mosquitto.org:1883"/>
+   </route>
+
+   <route id="proposal">
+     <from uri="jacamo-artifact:mqtt?operation=propose&amp;args=(Id,Name,Price)"/>
+     <setProperty propertyName="Type"><simple>proposal</simple></setProperty>
+     <process ref="register"/>
+     <to uri="mqtt:client?publishTopicName=cnp/proposals&amp;host=tcp://test.mosquitto.org:1883"/>
+   </route>
+
+   <route id="result">
+     <from uri="jacamo-artifact:mqtt?operation=accept&amp;args=(Id,Name)"/>
+     <setProperty propertyName="Type"><simple>accept</simple></setProperty>
+     <process ref="register"/>
+     <to uri="mqtt:client?publishTopicName=cnp/result&amp;host=tcp://test.mosquitto.org:1883"/>
+   </route>
+
+   <route id="participants">
+     <from uri="mqtt:client?subscribeTopicNames=cnp/participants&amp;host=tcp://test.mosquitto.org:1883"/>
+     <process ref="body2literal"/>
+     <to uri='jacamo-agent:initiator'/>
+   </route>
+
+   <route id="proposals2agent">
+     <from uri="mqtt:client?subscribeTopicNames=cnp/proposals&amp;host=tcp://test.mosquitto.org:1883"/>
+     <process ref="body2literal"/>
+     <to uri='jacamo-agent:initiator'/>
+   </route>
+
+   <route id="cfp2">
+     <from uri="mqtt:client?subscribeTopicNames=cnp/cfp&amp;host=tcp://test.mosquitto.org:1883"/>
+     <process ref="body2literal"/>
+     <to uri='jacamo-agent:p1'/>
+     <to uri='jacamo-agent:p2'/>
+     <to uri='jacamo-agent:p3'/>
+   </route>
+
+   <route id="result2Agent">
+     <from uri="mqtt:client?subscribeTopicNames=cnp/result&amp;host=tcp://test.mosquitto.org:1883"/>
+     <process ref="body2literal"/>
+     <to uri='jacamo-agent:p1'/>
+     <to uri='jacamo-agent:p2'/>
+     <to uri='jacamo-agent:p3'/>
+   </route>
+
+</routes>

@@ -1,0 +1,23 @@
+mas cnp {
+
+	agent c : c.asl { // the CNP initiator
+	}
+
+	agent p1 : p.asl { // the CNP participant
+	}
+
+	agent p2 : p.asl { // the CNP participant
+	}
+
+	agent p3 : p.asl { // the CNP participant
+	}
+
+	agent pr : pr.asl { // the CNP participant
+	}
+
+	agent pn : pn.asl { // the CNP participant
+	}
+
+	platform: jacamo.rest.JCMRest("--main 2181 --restPort 8080")
+
+}

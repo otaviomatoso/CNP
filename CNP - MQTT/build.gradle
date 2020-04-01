@@ -1,0 +1,70 @@
+/*
+   Project Demo-completa
+
+   Gradle build file for JaCaMo Applications with Camel
+   September, 2019 - 16:20:00
+*/
+
+defaultTasks 'run'
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+
+    maven { url "http://jacamo.sourceforge.net/maven2" }
+    maven { url "http://maven.tecgraf.puc-rio.br:8081/nexus/content/repositories/releases/" }
+    maven { url "https://raw.github.com/jacamo-lang/mvn-repo/master" }
+
+    flatDir {
+       dirs 'lib'
+    }
+}
+
+dependencies {
+  // ------------- main dependencies -------------
+  compile group: 'org.jacamo', name: 'jacamo', version: '0.8'
+
+  compile group: 'org.jacamo-lang',     name: 'camel-jacamo' ,   version: '0.2.1'
+
+  compile group: 'org.apache.camel', name: 'camel-mqtt', version: '2.22.2'
+
+  compile group: 'org.json', name: 'json', version: '20180813'
+
+
+  // directory libs'
+  compile fileTree(dir: 'lib', include: ['*.jar'])
+
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/env'
+            srcDir 'src/agt'
+            srcDir 'src/org'
+            srcDir 'src/java'
+        }
+        resources {
+            srcDir 'src/resources'
+        }
+    }
+}
+
+task run (type: JavaExec, dependsOn: 'classes') {
+    group ' JaCaMo'
+    description 'runs the JaCaMo platform'
+    main 'jacamo.infra.JaCaMoLauncher'
+    args 'cnp.jcm'
+    classpath sourceSets.main.runtimeClasspath
+}
+
+clean {
+    delete 'bin'
+    delete 'build'
+    delete 'log'
+}

@@ -1,0 +1,19 @@
+mas cnp {
+
+	agent initiator : initiator.asl { // the CNP initiator
+	}
+
+	agent p1 : participant.asl { // the CNP initiator
+	}
+
+	agent p2 : participant.asl { // the CNP initiator
+	}
+
+	agent p3 : participant.asl { // the CNP initiator
+	}
+
+	/* agent teste : teste.asl { // the CNP initiator
+	} */
+
+	platform: jacamoComponent.JacamoCamel("routes.xml --applicationContext.xml")
+}
