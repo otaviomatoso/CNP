@@ -1,19 +1,13 @@
 .gradle
-e_r_r_o_r.txt
-.settings
 .git
-.DS_Store
-
-bin
-
-build
-
-log
-
+.settings
 .classpath
-
+.stop___MAS
 .project
 
+bin
+build
+log
 target
 
-.stop___MAS
+e_r_r_o_r.txt
